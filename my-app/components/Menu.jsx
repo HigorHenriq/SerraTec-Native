@@ -1,15 +1,8 @@
-import * as React from "react";
-
 import {
 	Box,
-	Button,
-	Center,
 	Divider,
 	HStack,
-	HamburgerIcon,
-	Heading,
 	Icon,
-	NativeBaseProvider,
 	Pressable,
 	Text,
 	VStack,
@@ -18,10 +11,12 @@ import {
 	DrawerContentScrollView,
 	createDrawerNavigator,
 } from "@react-navigation/drawer";
+import React, { useContext } from "react";
 
 import { AntDesign } from "@expo/vector-icons";
 import Login from "../pages/Login";
 import { NavigationContainer } from "@react-navigation/native";
+import { UsuarioContext } from "../context";
 
 const Drawer = createDrawerNavigator();
 
@@ -43,16 +38,11 @@ function CustomDrawerContent(props) {
 		<DrawerContentScrollView {...props} safeArea>
 			<VStack space="6" my="2" mx="1">
 				<Box px="4">
-					<Text bold color="gray.700">
-						Mail
+					<Text bold color="#787A74">
+						{props.usuario?.nome}
 					</Text>
-					<Text
-						fontSize="14"
-						mt="1"
-						color="gray.500"
-						fontWeight="500"
-					>
-						john_doe@gmail.com
+					<Text fontSize="14" mt="1" color="#787A74" fontWeight="500">
+						{props.usuario?.email}
 					</Text>
 				</Box>
 				<VStack divider={<Divider />} space="4">
@@ -76,8 +66,8 @@ function CustomDrawerContent(props) {
 									<Icon
 										color={
 											index === props.state.index
-												? "primary.500"
-												: "gray.500"
+												? "#4561FF"
+												: "#787A74"
 										}
 										size="5"
 										as={<AntDesign name={getIcon(name)} />}
@@ -86,8 +76,8 @@ function CustomDrawerContent(props) {
 										fontWeight="500"
 										color={
 											index === props.state.index
-												? "primary.500"
-												: "gray.700"
+												? "#4561FF"
+												: "#787A74"
 										}
 									>
 										{name}
@@ -101,11 +91,13 @@ function CustomDrawerContent(props) {
 		</DrawerContentScrollView>
 	);
 }
-function MyDrawer() {
+function MyDrawer({ usuario }) {
 	return (
 		<Box safeArea flex={1}>
 			<Drawer.Navigator
-				drawerContent={(props) => <CustomDrawerContent {...props} />}
+				drawerContent={(props) => (
+					<CustomDrawerContent usuario={usuario} {...props} />
+				)}
 			>
 				<Drawer.Screen name="Login" component={Login} />
 				<Drawer.Screen name="Alunos" component={Login} />
@@ -115,9 +107,10 @@ function MyDrawer() {
 	);
 }
 export default function App() {
+	const { usuario } = useContext(UsuarioContext);
 	return (
 		<NavigationContainer>
-			<MyDrawer />
+			<MyDrawer usuario={usuario} />
 		</NavigationContainer>
 	);
 }
