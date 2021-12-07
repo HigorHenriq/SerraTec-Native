@@ -45,7 +45,8 @@ const Login = () => {
 
 	return (
 		<Container>
-			<Title>Serratec app</Title>
+			<Title>SerraTec App</Title>
+			<Text style={{ fontSize: 18, color: "#4561FF" }}>Bem-Vindo!</Text>
 
 			{mostrarMsgErro && (
 				<Collapse isOpen={mostrarMsgErro}>
@@ -104,7 +105,11 @@ const Login = () => {
 				value={senha}
 				type="password"
 			/>
-			<Button size="lg" onPress={() => efetuarLogin()}>
+			<Button
+				size="lg"
+				backgroundColor="#4561FF"
+				onPress={() => efetuarLogin()}
+			>
 				Login
 			</Button>
 		</Container>
