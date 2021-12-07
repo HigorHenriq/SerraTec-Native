@@ -13,6 +13,7 @@ import {
 } from "@react-navigation/drawer";
 import React, { useContext } from "react";
 
+import Alunos from "../pages/Alunos";
 import { AntDesign } from "@expo/vector-icons";
 import Login from "../pages/Login";
 import { NavigationContainer } from "@react-navigation/native";
@@ -100,7 +101,7 @@ function MyDrawer({ usuario }) {
 				)}
 			>
 				<Drawer.Screen name="Login" component={Login} />
-				<Drawer.Screen name="Alunos" component={Login} />
+				<Drawer.Screen name="Alunos" component={Alunos} />
 				<Drawer.Screen name="Materias" component={Login} />
 			</Drawer.Navigator>
 		</Box>
