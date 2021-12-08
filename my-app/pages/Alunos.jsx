@@ -17,57 +17,82 @@ import { SwipeListView } from "react-native-swipe-list-view";
 import axios from "axios";
 
 const Alunos = () => {
+	const URL = "https://secret-headland-69654.herokuapp.com/alunos";
+
 	const [alunos, setAlunos] = useState([]);
 
+	const [alunoSelecionado, setAlunoSelecionado] = useState([]);
+
+	// Usado para o ActionSheet
 	const { isOpen, onOpen, onClose } = useDisclose();
 
+	const consultarAlunos = () => {
+		axios.get(URL).then((response) => {
+			setAlunos(response.data);
+		});
+	};
+
 	useEffect(() => {
-		axios
-			.get("https://secret-headland-69654.herokuapp.com/alunos")
-			.then((response) => {
-				setAlunos(response.data);
-			});
+		consultarAlunos();
 	}, []);
 
-	const renderItem = ({ item, index }) => (
-		<Box>
-			<Pressable onPress={onOpen} bg="white">
-				<Box pl="4" pr="5" py="2">
-					<HStack alignItems="center" space={3}>
-						<VStack>
+	const deletarAluno = () => {
+		axios.delete(URL, { data: alunoSelecionado }).then((response) => {
+			onClose();
+			consultarAlunos();
+		});
+	};
+
+	const renderItem = ({ item }) => {
+		// Função responsavel por reconhecer qual aluno foi selecionado
+		const alunoClicado = () => {
+			setAlunoSelecionado(item);
+			onOpen();
+		};
+
+		return (
+			// item é valor que será recebido do componente renderItem que vem do SwapeListView onde foi setado os dados
+			<Box>
+				{/* OnPress irá ativar o clicarAluno e irá lá na função buscar o onOpen() para abrir a função do actionSheet*/}
+				<Pressable onPress={() => alunoClicado()} bg="white">
+					<Box pl="4" pr="5" py="2">
+						<HStack alignItems="center" space={3}>
+							<VStack>
+								<Text
+									color="coolGray.800"
+									_dark={{ color: "warmGray.50" }}
+									bold
+								>
+									{item.nome}
+								</Text>
+								<Text
+									color="coolGray.600"
+									_dark={{ color: "warmGray.200" }}
+								>
+									{item.cidade}
+								</Text>
+							</VStack>
+							<Spacer />
 							<Text
+								fontSize="xs"
 								color="coolGray.800"
 								_dark={{ color: "warmGray.50" }}
-								bold
+								alignSelf="flex-start"
 							>
-								{item.nome}
+								{`${item.idade} anos`}
 							</Text>
-							<Text
-								color="coolGray.600"
-								_dark={{ color: "warmGray.200" }}
-							>
-								{item.cidade}
-							</Text>
-						</VStack>
-						<Spacer />
-						<Text
-							fontSize="xs"
-							color="coolGray.800"
-							_dark={{ color: "warmGray.50" }}
-							alignSelf="flex-start"
-						>
-							{`${item.idade} anos`}
-						</Text>
-					</HStack>
-				</Box>
-			</Pressable>
-		</Box>
-	);
+						</HStack>
+					</Box>
+				</Pressable>
+			</Box>
+		);
+	};
 
 	return (
 		<>
 			<SwipeListView data={alunos} renderItem={renderItem} />
 
+			{/* Action sheet é responsavel pela opção de subir tipo um modal/lista de baixo pra cima com opções */}
 			<Actionsheet isOpen={isOpen} onClose={onClose} size="full">
 				<Actionsheet.Content>
 					<Box w="100%" h={60} px={4} justifyContent="center">
@@ -78,10 +103,11 @@ const Alunos = () => {
 								color: "gray.300",
 							}}
 						>
-							Albums
+							Opções
 						</Text>
 					</Box>
 					<Actionsheet.Item
+						onPress={() => deletarAluno()}
 						startIcon={
 							<Icon
 								as={MaterialIcons}
@@ -92,48 +118,23 @@ const Alunos = () => {
 							/>
 						}
 					>
-						Delete
+						Deletar
 					</Actionsheet.Item>
 					<Actionsheet.Item
 						startIcon={
 							<Icon
 								as={MaterialIcons}
-								name="share"
+								name="edit"
 								color="trueGray.400"
 								mr="1"
 								size="6"
 							/>
 						}
 					>
-						Share
+						Editar
 					</Actionsheet.Item>
 					<Actionsheet.Item
-						startIcon={
-							<Icon
-								as={Ionicons}
-								name="play-circle"
-								color="trueGray.400"
-								mr="1"
-								size="6"
-							/>
-						}
-					>
-						Play
-					</Actionsheet.Item>
-					<Actionsheet.Item
-						startIcon={
-							<Icon
-								as={MaterialIcons}
-								color="trueGray.400"
-								mr="1"
-								size="6"
-								name="favorite"
-							/>
-						}
-					>
-						Favourite
-					</Actionsheet.Item>
-					<Actionsheet.Item
+						onPress={() => onClose()}
 						p={3}
 						startIcon={
 							<Icon
@@ -148,7 +149,7 @@ const Alunos = () => {
 							</Icon>
 						}
 					>
-						Cancel
+						Fechar
 					</Actionsheet.Item>
 				</Actionsheet.Content>
 			</Actionsheet>

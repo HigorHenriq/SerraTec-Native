@@ -24,6 +24,7 @@ const Login = () => {
 	const [email, setEmail] = useState();
 	const [senha, setSenha] = useState();
 
+	//Iniciamos a MSG como false para não iniciar junto da aplicação
 	const [mostrarMsgErro, setMostrarMsgErro] = useState(false);
 
 	const { setUsuario } = useContext(UsuarioContext);
@@ -48,6 +49,7 @@ const Login = () => {
 			<Title>SerraTec App</Title>
 			<Text style={{ fontSize: 18, color: "#4561FF" }}>Bem-Vindo!</Text>
 
+			{/* Usamos uma renderização condicional se a condição é true, o elemento logo depois do && irá aparecer no resultado.*/}
 			{mostrarMsgErro && (
 				<Collapse isOpen={mostrarMsgErro}>
 					<Alert w="100%" status={"error"} mt="5">
