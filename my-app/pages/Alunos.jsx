@@ -47,6 +47,10 @@ const Alunos = () => {
 		// Função responsavel por reconhecer qual aluno foi selecionado
 		const alunoClicado = () => {
 			setAlunoSelecionado(item);
+			//o SetAlunos é utilizado com o spreads de alunos para ter
+			//uma copia da lista e re renderizar toda vez,
+			//usado para funcionar a renderização condicional do background
+			setAlunos([...alunos]);
 			onOpen();
 		};
 
@@ -54,7 +58,11 @@ const Alunos = () => {
 			// item é valor que será recebido do componente renderItem que vem do SwapeListView onde foi setado os dados
 			<Box>
 				{/* OnPress irá ativar o clicarAluno e irá lá na função buscar o onOpen() para abrir a função do actionSheet*/}
-				<Pressable onPress={() => alunoClicado()} bg="white">
+				<Pressable
+					onPress={() => alunoClicado()}
+					//background com a renderização condicional, se o aluno do data for igual ao aluno selecionado vai ficar em destaque azul
+					bg={item.id == alunoSelecionado?.id ? "#6DADF2" : "white"}
+				>
 					<Box pl="4" pr="5" py="2">
 						<HStack alignItems="center" space={3}>
 							<VStack>
