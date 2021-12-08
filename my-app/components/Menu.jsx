@@ -17,7 +17,7 @@ import Alunos from "../pages/Alunos";
 import { AntDesign } from "@expo/vector-icons";
 import Login from "../pages/Login";
 import { NavigationContainer } from "@react-navigation/native";
-import { UsuarioContext } from "../context";
+import { UsuarioContext } from "../context/usuarios";
 
 const Drawer = createDrawerNavigator();
 
@@ -92,6 +92,9 @@ function CustomDrawerContent(props) {
 		</DrawerContentScrollView>
 	);
 }
+
+//Desestrutura o aluno para poder passa-lo DrawerContentScrollView, quando o usuario logar
+//irá aparecer seu email na barra de nav
 function MyDrawer({ usuario }) {
 	return (
 		<Box safeArea flex={1}>
