@@ -9,6 +9,7 @@ import {
 	VStack,
 	useDisclose,
 } from "native-base";
+import { AlertDialog, Button, Center, NativeBaseProvider } from "native-base";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import React, { useEffect, useState } from "react";
 
@@ -26,6 +27,13 @@ const Alunos = () => {
 	// Usado para o ActionSheet
 	const { isOpen, onOpen, onClose } = useDisclose();
 
+	//canncelRef utilizado no AlertDialog
+	const cancelRef = React.useRef(null);
+
+	const [abrirMSG, setAbrirMSG] = React.useState(false);
+
+	const fecharMSG = () => setAbrirMSG(false);
+
 	const consultarAlunos = () => {
 		axios.get(URL).then((response) => {
 			setAlunos(response.data);
@@ -39,6 +47,7 @@ const Alunos = () => {
 	const deletarAluno = () => {
 		axios.delete(URL, { data: alunoSelecionado }).then((response) => {
 			onClose();
+			setAbrirMSG(true);
 			consultarAlunos();
 		});
 	};
@@ -100,7 +109,23 @@ const Alunos = () => {
 		<>
 			<SwipeListView data={alunos} renderItem={renderItem} />
 
+			{/* Componente responsavel pela mensagem de alerta quando deletar algum aluno */}
+			<AlertDialog
+				leastDestructiveRef={cancelRef}
+				isOpen={abrirMSG}
+				onClose={fecharMSG}
+			>
+				<AlertDialog.Content>
+					<AlertDialog.CloseButton />
+					<AlertDialog.Header>Aluno Deletado</AlertDialog.Header>
+					<AlertDialog.Body>
+						Aluno removido com sucesso!
+					</AlertDialog.Body>
+				</AlertDialog.Content>
+			</AlertDialog>
+
 			{/* Action sheet é responsavel pela opção de subir tipo um modal/lista de baixo pra cima com opções */}
+			{/* --OPÇÕES AO CLICAR EM ALUNOS-- */}
 			<Actionsheet isOpen={isOpen} onClose={onClose} size="full">
 				<Actionsheet.Content>
 					<Box w="100%" h={60} px={4} justifyContent="center">
