@@ -1,6 +1,5 @@
 import "react-native-gesture-handler";
 
-// import { UsuarioProvider } from "./context/usuarios";
 import GlobalContext from "./context";
 import Menu from "./components/Menu";
 import { NativeBaseProvider } from "native-base";

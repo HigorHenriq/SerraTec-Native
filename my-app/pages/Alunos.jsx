@@ -11,8 +11,9 @@ import {
 } from "native-base";
 import { AlertDialog, Button, Center, NativeBaseProvider } from "native-base";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
+import { AlunosContext } from "../context/alunos";
 import { Path } from "react-native-svg";
 import { SwipeListView } from "react-native-swipe-list-view";
 import axios from "axios";
@@ -20,7 +21,9 @@ import axios from "axios";
 const Alunos = () => {
 	const URL = "https://secret-headland-69654.herokuapp.com/alunos";
 
-	const [alunos, setAlunos] = useState();
+	// const [alunos, setAlunos] = useState();
+
+	const { alunos, setAlunos } = useContext(AlunosContext);
 
 	const [alunoSelecionado, setAlunoSelecionado] = useState([]);
 
