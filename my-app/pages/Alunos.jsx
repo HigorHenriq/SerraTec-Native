@@ -20,7 +20,7 @@ import axios from "axios";
 const Alunos = () => {
 	const URL = "https://secret-headland-69654.herokuapp.com/alunos";
 
-	const [alunos, setAlunos] = useState([]);
+	const [alunos, setAlunos] = useState();
 
 	const [alunoSelecionado, setAlunoSelecionado] = useState([]);
 
