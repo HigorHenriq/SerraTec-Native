@@ -32,6 +32,10 @@ const Login = ({ navigation }) => {
 		if (usuario) navigation.navigate("Alunos");
 	}, [usuario]);
 
+	const IrCadastrar = () => {
+		navigation.navigate("Cadastrar Usuario");
+	};
+
 	const efetuarLogin = () => {
 		axios
 			.post("https://secret-headland-69654.herokuapp.com/logar", {
@@ -126,6 +130,19 @@ const Login = ({ navigation }) => {
 			>
 				Login
 			</Button>
+			<Text style={{ marginTop: 15 }}>Ainda não possui uma conta?</Text>
+			<Text
+				style={{
+					marginTop: 15,
+					color: "#4561FF",
+					borderBottomWidth: 4,
+					borderBottomColor: "#4561FF",
+					borderBottomRightRadius: 19,
+				}}
+				onPress={() => IrCadastrar()}
+			>
+				Criar Uma Conta
+			</Text>
 		</Container>
 	);
 };

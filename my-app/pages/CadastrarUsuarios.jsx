@@ -29,9 +29,9 @@ const CadastrarUsuarios = ({ navigation }) => {
 
 	const { usuario, setUsuario } = useContext(UsuarioContext);
 
-	// useEffect(() => {
-	// 	if (usuario) navigation.navigate("Alunos");
-	// }, [usuario]);
+	useEffect(() => {
+		if (setUsuario) navigation.navigate("Login");
+	}, [usuario]);
 
 	const CadastrarUsuario = () => {
 		axios
