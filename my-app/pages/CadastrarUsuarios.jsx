@@ -27,11 +27,19 @@ const CadastrarUsuarios = ({ navigation }) => {
 	//Iniciamos a MSG como false para não iniciar junto da aplicação
 	const [mostrarMsgErro, setMostrarMsgErro] = useState(false);
 
+	const [mostrarMsgSucesso, SetMostrarMsgSucesso] = useState(false);
+
 	const { usuario, setUsuario } = useContext(UsuarioContext);
 
 	useEffect(() => {
 		if (setUsuario) navigation.navigate("Login");
 	}, [usuario]);
+
+	const limparInput = () => {
+		setNome("");
+		setEmail("");
+		setSenha("");
+	};
 
 	const CadastrarUsuario = () => {
 		axios
@@ -41,7 +49,13 @@ const CadastrarUsuarios = ({ navigation }) => {
 				senha,
 			})
 			.then((result) => {
-				setUsuario(result.data);
+				if (result.status === 201) {
+					SetMostrarMsgSucesso(true);
+				}
+				setTimeout(() => {
+					setUsuario(result.data);
+				}, 1500);
+				limparInput();
 			})
 			.catch((erro) => {
 				setMostrarMsgErro(true);
@@ -51,6 +65,39 @@ const CadastrarUsuarios = ({ navigation }) => {
 	return (
 		<Container>
 			<Title>Cadastrar Novo Usuario</Title>
+
+			{mostrarMsgSucesso && (
+				<Collapse isOpen={mostrarMsgSucesso}>
+					<Alert w="100%" status={"success"} mt="5">
+						<VStack space={2} flexShrink={1} w="100%">
+							<HStack
+								flexShrink={1}
+								space={2}
+								justifyContent="space-between"
+							>
+								<HStack space={2} flexShrink={1}>
+									<Alert.Icon mt="1" />
+									<Text fontSize="md" color="coolGray.800">
+										{"Usuario Registrado Com Sucesso!"}
+									</Text>
+								</HStack>
+								<IconButton
+									variant="unstyled"
+									icon={
+										<CloseIcon
+											size="4"
+											color="coolGray.600"
+											onPress={() => {
+												SetMostrarMsgSucesso(false);
+											}}
+										/>
+									}
+								/>
+							</HStack>
+						</VStack>
+					</Alert>
+				</Collapse>
+			)}
 
 			{/* Usamos uma renderização condicional se a condição é true, o elemento logo depois do && irá aparecer no resultado.*/}
 			{mostrarMsgErro && (
@@ -87,6 +134,7 @@ const CadastrarUsuarios = ({ navigation }) => {
 					</Alert>
 				</Collapse>
 			)}
+
 			<Input
 				mx="3"
 				placeholder="Nome"

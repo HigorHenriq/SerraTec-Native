@@ -28,6 +28,11 @@ const Login = ({ navigation }) => {
 
 	const { usuario, setUsuario } = useContext(UsuarioContext);
 
+	const limparInput = () => {
+		setEmail("");
+		setSenha("");
+	};
+
 	useEffect(() => {
 		if (usuario) navigation.navigate("Alunos");
 	}, [usuario]);
@@ -54,6 +59,7 @@ const Login = ({ navigation }) => {
 
 				setUsuario(result.data);
 				// console.log(result);
+				limparInput();
 			})
 			.catch((erro) => {
 				setMostrarMsgErro(true);
