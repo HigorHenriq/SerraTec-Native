@@ -54,9 +54,6 @@ function CustomDrawerContent(props) {
 					<Text fontSize="14" mt="1" color="#787A74" fontWeight="500">
 						{props.usuario?.email}
 					</Text>
-					<Text fontSize="14" mt="1" color="#787A74" fontWeight="500">
-						Sair
-					</Text>
 				</Box>
 				<VStack divider={<Divider />} space="4">
 					<VStack space="3">
