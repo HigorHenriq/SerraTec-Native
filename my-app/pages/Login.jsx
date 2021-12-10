@@ -15,6 +15,7 @@ import { default as React, useContext, useEffect, useState } from "react";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Container } from "../components/Container";
+import { Pressable } from "react-native";
 import Title from "../components/Title";
 import { UsuarioContext } from "../context/usuarios";
 import axios from "axios";
@@ -38,9 +39,10 @@ const Login = ({ navigation }) => {
 		if (usuario) navigation.navigate("Alunos");
 	}, [usuario]);
 
-	const IrCadastrar = () => {
-		navigation.navigate("Cadastrar Usuarios");
-	};
+	//METODO IMPLEMENTADO DIRETAMENTO NO PRESSABLE
+	// const IrCadastrar = () => {
+	// 	navigation.navigate("Cadastrar Usuarios");
+	// };
 
 	const efetuarLogin = () => {
 		axios
@@ -138,19 +140,22 @@ const Login = ({ navigation }) => {
 				Login
 			</Button>
 			<Text style={{ marginTop: 25 }}>Ainda não possui uma conta?</Text>
-			<Text
-				style={{
-					marginTop: 15,
-					color: "#4561FF",
-					borderBottomWidth: 2,
-					borderBottomColor: "#4561FF",
-					borderBottomRightRadius: 20,
-					borderBottomLeftRadius: 20,
-				}}
-				onPress={() => IrCadastrar()}
+			<Pressable
+				onPress={() => navigation.navigate("Cadastrar Usuarios")}
 			>
-				Criar Uma Conta
-			</Text>
+				<Text
+					style={{
+						marginTop: 15,
+						color: "#4561FF",
+						borderBottomWidth: 2,
+						borderBottomColor: "#4561FF",
+						borderBottomRightRadius: 20,
+						borderBottomLeftRadius: 20,
+					}}
+				>
+					Criar Uma Conta
+				</Text>
+			</Pressable>
 		</Container>
 	);
 };
