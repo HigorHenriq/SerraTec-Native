@@ -2,32 +2,35 @@ import "react-native-gesture-handler";
 
 import {
 	Alert,
-	Center,
+	Button,
 	CloseIcon,
 	Collapse,
 	HStack,
 	IconButton,
-	NativeBaseProvider,
-	Stack,
+	Input,
 	Text,
 	VStack,
 } from "native-base";
-import { Button, Input } from "native-base";
-import { default as React, useContext, useState } from "react";
+import { default as React, useContext, useEffect, useState } from "react";
 
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Container } from "../components/Container";
 import Title from "../components/Title";
 import { UsuarioContext } from "../context/usuarios";
 import axios from "axios";
 
-const Login = () => {
+const Login = ({ navigation }) => {
 	const [email, setEmail] = useState();
 	const [senha, setSenha] = useState();
 
 	//Iniciamos a MSG como false para não iniciar junto da aplicação
 	const [mostrarMsgErro, setMostrarMsgErro] = useState(false);
 
-	const { setUsuario } = useContext(UsuarioContext);
+	const { usuario, setUsuario } = useContext(UsuarioContext);
+
+	useEffect(() => {
+		if (usuario) navigation.navigate("Alunos");
+	}, [usuario]);
 
 	const efetuarLogin = () => {
 		axios
@@ -35,9 +38,18 @@ const Login = () => {
 				email,
 				senha,
 			})
-			.then((result) => {
+			.then(async (result) => {
+				// {Key: '@usuario, value: ''}
+				//JSON.stringfy = Transforma um OBJETO JavaScript para STRING
+				const usuarioEmString = JSON.stringify(result.data);
+
+				//---METODO DE MANTER O USUARIO LOGADO---
+				AsyncStorage.removeItem("@usuario").then(() => {
+					AsyncStorage.setItem("@usuario", usuarioEmString);
+				});
+
 				setUsuario(result.data);
-				console.log(result);
+				// console.log(result);
 			})
 			.catch((erro) => {
 				setMostrarMsgErro(true);

@@ -103,7 +103,10 @@ function MyDrawer({ usuario }) {
 					<CustomDrawerContent usuario={usuario} {...props} />
 				)}
 				//Opção para ocultar a barra de navegação caso não tenha usuario logado, após logar a nav irá aparecer
-				// screenOptions={{ headerShown: usuario ? true : false }}
+				screenOptions={{ headerShown: usuario ? true : false }}
+				//Ternario usado para quando a navegação
+				//Se o usuario já estiver Logado irá para a tela de Alunos
+				initialRouteName={usuario ? "Alunos" : "Login"}
 			>
 				<Drawer.Screen name="Login" component={Login} />
 				<Drawer.Screen name="Alunos" component={Alunos} />
