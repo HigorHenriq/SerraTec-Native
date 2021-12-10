@@ -35,35 +35,29 @@ const AdicionarAlunos = () => {
 		setCidade("");
 	};
 
-	/* {**TODO**
-		-IMPLEMENTAR PROTEÇÃO DO QUE PODE SER POSTADO
-			-nome
-			-email
-			-idade
-	} */
-
 	const CadastroAlunos = () => {
-		axios
-			.post("https://secret-headland-69654.herokuapp.com/alunos", {
-				nome,
-				cidade,
-				idade,
-			})
-			.then((result) => {
-				if (result.status === 201) {
-					SetMostrarMsgSucesso(true);
-				}
+		if (nome && cidade && idade) {
+			axios
+				.post("https://secret-headland-69654.herokuapp.com/alunos", {
+					nome,
+					cidade,
+					idade,
+				})
+				.then((result) => {
+					if (result.status === 201) {
+						SetMostrarMsgSucesso(true);
+					}
 
-				setTimeout(() => {
-					setAlunos(result.data);
-					SetMostrarMsgSucesso(false);
-				}, 1500);
+					setTimeout(() => {
+						setAlunos(result.data);
+						SetMostrarMsgSucesso(false);
+					}, 1500);
 
-				limparInput();
-			})
-			.catch((erro) => {
-				setMostrarMsgErro(true);
-			});
+					limparInput();
+				});
+		} else {
+			setMostrarMsgErro(true);
+		}
 	};
 
 	return (
@@ -116,9 +110,7 @@ const AdicionarAlunos = () => {
 								<HStack space={2} flexShrink={1}>
 									<Alert.Icon mt="1" />
 									<Text fontSize="md" color="coolGray.800">
-										{
-											"Dados incompletos por favor verificar os campos preenchidos"
-										}
+										{"Campos Invalidos"}
 									</Text>
 								</HStack>
 								<IconButton

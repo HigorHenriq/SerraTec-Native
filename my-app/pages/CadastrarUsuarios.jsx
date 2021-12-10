@@ -41,34 +41,29 @@ const CadastrarUsuarios = ({ navigation }) => {
 		setSenha("");
 	};
 
-	/* {**TODO**
-		-IMPLEMENTAR PROTEÇÃO DO QUE PODE SER POSTADO
-			-nome
-			-email
-			-senha
-	} */
 	const CadastrarUsuario = () => {
-		axios
-			.post("https://secret-headland-69654.herokuapp.com/usuario", {
-				nome,
-				email,
-				senha,
-			})
-			.then((result) => {
-				if (result.status === 201) {
-					SetMostrarMsgSucesso(true);
-				}
+		if (nome && email && senha) {
+			axios
+				.post("https://secret-headland-69654.herokuapp.com/usuario", {
+					nome,
+					email,
+					senha,
+				})
+				.then((result) => {
+					if (result.status === 201) {
+						SetMostrarMsgSucesso(true);
+					}
 
-				setTimeout(() => {
-					setUsuario(result.data);
-					SetMostrarMsgSucesso(false);
-				}, 1500);
+					setTimeout(() => {
+						setUsuario(result.data);
+						SetMostrarMsgSucesso(false);
+					}, 1500);
 
-				limparInput();
-			})
-			.catch((erro) => {
-				setMostrarMsgErro(true);
-			});
+					limparInput();
+				});
+		} else {
+			setMostrarMsgErro(true);
+		}
 	};
 
 	return (
