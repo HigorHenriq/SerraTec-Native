@@ -11,11 +11,12 @@ import {
 	DrawerContentScrollView,
 	createDrawerNavigator,
 } from "@react-navigation/drawer";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 
 import AdicionarAlunos from "../pages/AdicionarAlunos";
 import Alunos from "../pages/Alunos";
 import { AntDesign } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import CadastrarUsuarios from "../pages/CadastrarUsuarios";
 import Login from "../pages/Login";
 import { NavigationContainer } from "@react-navigation/native";
@@ -35,6 +36,8 @@ const getIcon = (screenName) => {
 			return "adduser";
 		case "Adicionar Alunos":
 			return "addusergroup";
+		case "Sair":
+			return "logout";
 		default:
 			return undefined;
 	}
@@ -50,6 +53,9 @@ function CustomDrawerContent(props) {
 					</Text>
 					<Text fontSize="14" mt="1" color="#787A74" fontWeight="500">
 						{props.usuario?.email}
+					</Text>
+					<Text fontSize="14" mt="1" color="#787A74" fontWeight="500">
+						Sair
 					</Text>
 				</Box>
 				<VStack divider={<Divider />} space="4">
@@ -126,10 +132,23 @@ function MyDrawer({ usuario }) {
 					name="Adicionar Alunos"
 					component={AdicionarAlunos}
 				/>
+				<Drawer.Screen name="Sair" component={Logout} />
 			</Drawer.Navigator>
 		</Box>
 	);
 }
+
+const Logout = ({ navigation }) => {
+	const { setUsuario } = useContext(UsuarioContext);
+
+	useEffect(() => {
+		setUsuario(undefined);
+		AsyncStorage.removeItem("@usuario");
+		navigation.navigate("Login");
+	}, []);
+	return <></>;
+};
+
 export default function App() {
 	const { usuario } = useContext(UsuarioContext);
 	return (
