@@ -110,6 +110,7 @@ function MyDrawer({ usuario }) {
 				//Ternario usado para quando a navegação
 				//Se o usuario já estiver Logado irá para a tela de Alunos
 				initialRouteName={usuario ? "Alunos" : "Login"}
+				drawerIcon={{ color: "blue" }}
 			>
 				<Drawer.Screen name="Login" component={Login} />
 				<Drawer.Screen name="Alunos" component={Alunos} />

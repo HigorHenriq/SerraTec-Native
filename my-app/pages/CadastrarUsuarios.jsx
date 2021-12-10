@@ -52,10 +52,12 @@ const CadastrarUsuarios = ({ navigation }) => {
 				if (result.status === 201) {
 					SetMostrarMsgSucesso(true);
 				}
+
 				setTimeout(() => {
 					setUsuario(result.data);
 					SetMostrarMsgSucesso(false);
 				}, 1500);
+
 				limparInput();
 			})
 			.catch((erro) => {
