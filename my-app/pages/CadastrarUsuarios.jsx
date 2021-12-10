@@ -54,6 +54,7 @@ const CadastrarUsuarios = ({ navigation }) => {
 				}
 				setTimeout(() => {
 					setUsuario(result.data);
+					SetMostrarMsgSucesso(false);
 				}, 1500);
 				limparInput();
 			})
