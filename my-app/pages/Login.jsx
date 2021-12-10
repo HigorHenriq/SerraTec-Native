@@ -39,7 +39,7 @@ const Login = ({ navigation }) => {
 	}, [usuario]);
 
 	const IrCadastrar = () => {
-		navigation.navigate("Cadastrar Usuario");
+		navigation.navigate("Cadastrar Usuarios");
 	};
 
 	const efetuarLogin = () => {
