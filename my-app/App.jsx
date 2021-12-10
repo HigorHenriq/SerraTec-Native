@@ -1,16 +1,25 @@
 import "react-native-gesture-handler";
 
+import React, { useEffect, useState } from "react";
+import { StatusBar, Text } from "react-native";
+
 import GlobalContext from "./context";
 import Menu from "./components/Menu";
 import { NativeBaseProvider } from "native-base";
-import React from "react";
-import { StatusBar } from "react-native";
 
 export default function App() {
+	const [carregando, setCarregando] = useState(true);
+
+	useEffect(() => {
+		setTimeout(() => {
+			setCarregando(false);
+		}, 1000);
+	}, []);
+
 	return (
 		<GlobalContext>
 			<NativeBaseProvider>
-				<Menu />
+				{!carregando ? <Menu /> : <Text>Carregando</Text>}
 				<StatusBar
 					//MUDAR A COR MANUALMENTE DA BARRA
 					backgroundColor="#4561FF"

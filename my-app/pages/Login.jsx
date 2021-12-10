@@ -19,6 +19,7 @@ import Title from "../components/Title";
 import { UsuarioContext } from "../context/usuarios";
 import axios from "axios";
 
+//--{navigation} a props é necessaria para utilizarmos o navigation.navigate
 const Login = ({ navigation }) => {
 	const [email, setEmail] = useState();
 	const [senha, setSenha] = useState();
