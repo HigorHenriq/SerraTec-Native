@@ -137,14 +137,15 @@ const Login = ({ navigation }) => {
 			>
 				Login
 			</Button>
-			<Text style={{ marginTop: 15 }}>Ainda não possui uma conta?</Text>
+			<Text style={{ marginTop: 25 }}>Ainda não possui uma conta?</Text>
 			<Text
 				style={{
 					marginTop: 15,
 					color: "#4561FF",
-					borderBottomWidth: 4,
+					borderBottomWidth: 2,
 					borderBottomColor: "#4561FF",
-					borderBottomRightRadius: 19,
+					borderBottomRightRadius: 20,
+					borderBottomLeftRadius: 20,
 				}}
 				onPress={() => IrCadastrar()}
 			>
