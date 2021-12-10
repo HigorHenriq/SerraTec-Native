@@ -5,6 +5,7 @@ import {
 	Button,
 	CloseIcon,
 	Collapse,
+	Flex,
 	HStack,
 	IconButton,
 	Input,
@@ -13,6 +14,7 @@ import {
 } from "native-base";
 import { default as React, useContext, useEffect, useState } from "react";
 
+import { AntDesign } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Container } from "../components/Container";
 import Title from "../components/Title";
@@ -182,6 +184,21 @@ const CadastrarUsuarios = ({ navigation }) => {
 			>
 				Cadastrar
 			</Button>
+			<AntDesign
+				name="back"
+				size={15}
+				color="blue"
+				onPress={() => navigation.goBack()}
+				style={{
+					marginTop: 15,
+					display: "flex",
+					alignSelf: "flex-start",
+					padding: 15,
+				}}
+			>
+				{" "}
+				Voltar
+			</AntDesign>
 		</Container>
 	);
 };
