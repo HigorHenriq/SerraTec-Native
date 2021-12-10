@@ -15,6 +15,7 @@ import React, { useContext } from "react";
 
 import Alunos from "../pages/Alunos";
 import { AntDesign } from "@expo/vector-icons";
+import CadastrarUsuarios from "../pages/CadastrarUsuarios";
 import Login from "../pages/Login";
 import { NavigationContainer } from "@react-navigation/native";
 import { UsuarioContext } from "../context/usuarios";
@@ -29,6 +30,8 @@ const getIcon = (screenName) => {
 			return "login";
 		case "Materias":
 			return "book";
+		case "Cadastrar Usuario":
+			return "pluscircleo";
 		default:
 			return undefined;
 	}
@@ -111,6 +114,10 @@ function MyDrawer({ usuario }) {
 				<Drawer.Screen name="Login" component={Login} />
 				<Drawer.Screen name="Alunos" component={Alunos} />
 				<Drawer.Screen name="Materias" component={Login} />
+				<Drawer.Screen
+					name="Cadastrar Usuario"
+					component={CadastrarUsuarios}
+				/>
 			</Drawer.Navigator>
 		</Box>
 	);
