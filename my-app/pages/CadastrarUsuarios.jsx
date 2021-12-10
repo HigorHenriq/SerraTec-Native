@@ -41,6 +41,12 @@ const CadastrarUsuarios = ({ navigation }) => {
 		setSenha("");
 	};
 
+	/* {**TODO**
+		-IMPLEMENTAR PROTEÇÃO DO QUE PODE SER POSTADO
+			-nome
+			-email
+			-senha
+	} */
 	const CadastrarUsuario = () => {
 		axios
 			.post("https://secret-headland-69654.herokuapp.com/usuario", {

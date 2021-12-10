@@ -35,6 +35,13 @@ const AdicionarAlunos = () => {
 		setCidade("");
 	};
 
+	/* {**TODO**
+		-IMPLEMENTAR PROTEÇÃO DO QUE PODE SER POSTADO
+			-nome
+			-email
+			-idade
+	} */
+
 	const CadastroAlunos = () => {
 		axios
 			.post("https://secret-headland-69654.herokuapp.com/alunos", {
