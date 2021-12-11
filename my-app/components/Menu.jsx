@@ -16,6 +16,7 @@ import React, { useContext, useEffect } from "react";
 import AdicionarAlunos from "../pages/AdicionarAlunos";
 import Alunos from "../pages/Alunos";
 import { AntDesign } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import CadastrarUsuarios from "../pages/CadastrarUsuarios";
 import Login from "../pages/Login";
 import { NavigationContainer } from "@react-navigation/native";
