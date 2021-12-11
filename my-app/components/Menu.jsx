@@ -16,7 +16,6 @@ import React, { useContext, useEffect } from "react";
 import AdicionarAlunos from "../pages/AdicionarAlunos";
 import Alunos from "../pages/Alunos";
 import { AntDesign } from "@expo/vector-icons";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import CadastrarUsuarios from "../pages/CadastrarUsuarios";
 import Login from "../pages/Login";
 import { NavigationContainer } from "@react-navigation/native";
@@ -44,6 +43,35 @@ const getIcon = (screenName) => {
 };
 
 function CustomDrawerContent(props) {
+	const { setUsuario } = useContext(UsuarioContext);
+	const renderLogout = () => {
+		return (
+			<Pressable
+				px="5"
+				py="3"
+				rounded="md"
+				bg={"transparent"}
+				onPress={() => {
+					setUsuario(undefined);
+					AsyncStorage.removeItem("@usuario").then(() => {
+						props.navigation.navigate("Login");
+					});
+				}}
+			>
+				<HStack space="7" alignItems="center">
+					<Icon
+						color={"#A2A1A6"}
+						size="5"
+						as={<AntDesign name={getIcon("Sair")} />}
+					/>
+					<Text fontWeight="500" color={"#A2A1A6"}>
+						Sair
+					</Text>
+				</HStack>
+			</Pressable>
+		);
+	};
+
 	return (
 		<DrawerContentScrollView {...props} safeArea>
 			<VStack space="6" my="2" mx="1">
@@ -95,6 +123,7 @@ function CustomDrawerContent(props) {
 								</HStack>
 							</Pressable>
 						))}
+						{renderLogout()}
 					</VStack>
 				</VStack>
 			</VStack>
@@ -129,22 +158,10 @@ function MyDrawer({ usuario }) {
 					name="Adicionar Alunos"
 					component={AdicionarAlunos}
 				/>
-				<Drawer.Screen name="Sair" component={Logout} />
 			</Drawer.Navigator>
 		</Box>
 	);
 }
-
-const Logout = ({ navigation }) => {
-	const { setUsuario } = useContext(UsuarioContext);
-
-	useEffect(() => {
-		setUsuario(undefined);
-		AsyncStorage.removeItem("@usuario");
-		navigation.navigate("Login");
-	}, []);
-	return <></>;
-};
 
 export default function App() {
 	const { usuario } = useContext(UsuarioContext);
