@@ -150,7 +150,7 @@ function MyDrawer({ usuario }) {
 			>
 				<Drawer.Screen name="Login" component={Login} />
 				<Drawer.Screen name="Alunos" component={Alunos} />
-				<Drawer.Screen name="Materias" component={Login} />
+				<Drawer.Screen name="Materias" component={Materias} />
 				<Drawer.Screen
 					name="Cadastrar Usuarios"
 					component={CadastrarUsuarios}
