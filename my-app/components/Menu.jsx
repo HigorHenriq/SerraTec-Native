@@ -14,6 +14,7 @@ import {
 import React, { useContext, useEffect } from "react";
 
 import AdicionarAlunos from "../pages/AdicionarAlunos";
+import Materias from "../pages/Materias";
 import Alunos from "../pages/Alunos";
 import { AntDesign } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -100,6 +101,7 @@ function CustomDrawerContent(props) {
 									props.navigation.navigate(name);
 								}}
 								key={index}
+								style={name === "Cadastrar" || name === "Login" ? {display: 'none'} : null}
 							>
 								<HStack space="7" alignItems="center">
 									<Icon
