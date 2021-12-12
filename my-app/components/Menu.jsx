@@ -100,6 +100,7 @@ function CustomDrawerContent(props) {
 									props.navigation.navigate(name);
 								}}
 								key={index}
+								style={name === "Cadastrar" || name === "Login" ? {display: 'none'} : null}
 							>
 								<HStack space="7" alignItems="center">
 									<Icon
