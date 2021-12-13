@@ -44,7 +44,10 @@ const getIcon = (screenName) => {
 };
 
 function CustomDrawerContent(props) {
+	// UseContext utilizado para poder fazer o logout
 	const { setUsuario } = useContext(UsuarioContext);
+	// Metodo para deslogar do app
+	// a Função é puxada no final do render da nossa navBar
 	const renderLogout = () => {
 		return (
 			<Pressable
@@ -61,11 +64,11 @@ function CustomDrawerContent(props) {
 			>
 				<HStack space="7" alignItems="center">
 					<Icon
-						color={"#A2A1A6"}
+						color={"#8c00ff"}
 						size="5"
 						as={<AntDesign name={getIcon("Sair")} />}
 					/>
-					<Text fontWeight="500" color={"#A2A1A6"}>
+					<Text fontWeight="500" color={"#8c00ff"}>
 						Sair
 					</Text>
 				</HStack>
@@ -124,6 +127,7 @@ function CustomDrawerContent(props) {
 								</HStack>
 							</Pressable>
 						))}
+						{/* FUNÇÃO DO LOGOUT É UTILIZADA AQUI */}
 						{renderLogout()}
 					</VStack>
 				</VStack>
